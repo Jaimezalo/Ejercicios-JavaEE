@@ -20,12 +20,7 @@ public class Ejercicio_4 extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 		    throws ServletException, IOException {
        
-		int[]arrayNumeros = new int[20];
-	
-		for(int i=0; i<20; i++) {
-			int num = (int) Math.floor(Math.random()*10+1);
-			arrayNumeros[i] = num;
-		}
+		int[] lista = ArrayNumeros();
 		
 		response.setContentType("text/html;charset=UTF-8");
         
@@ -34,21 +29,21 @@ public class Ejercicio_4 extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Ejercicio 4</title>");
-            out.println("<style>table{border-collapse:collapse}table td{border:solid black 2px}</style>");
+            out.println("<style>table{border-collapse:collapse}"
+            		+ "table td{border:solid black 2px}"
+            		+ "td{width:40px;height:40px;text-align:center;}</style>");
             out.println("</head>");
             out.println("<body>");          
             out.println("<table><tr>");
             
-            	for(int j=0; j<arrayNumeros.length; j++) {
-            		out.println("<td>" + arrayNumeros[j] + "</td>");
+            	for(int j=0; j<lista.length; j++) {
+            		out.println("<td>" + lista[j] + "</td>");
             	}
-            	
-            out.println("<h3>El valor máximo es: " + maximo(arrayNumeros));
-            out.println("<h3>El valor mínimo es: " + minimo(arrayNumeros));
-            out.println("<h3>El valor que más veces se repite es: " + masRepetido(arrayNumeros));
-            
-
-            out.println("</tr></body>");
+        	out.println("</tr></table>");	
+            out.println("<ul><li>El valor máximo es: " + Maximo(lista) + "</li>");
+            out.println("<li>El valor mínimo es: " + Minimo(lista) + "</li>");
+            out.println("<li>El valor que más veces se repite es: " + MasRepetido(lista) + "</li></ul>");
+            out.println("</body>");
             out.println("</html>");
             
         } finally { 
@@ -56,11 +51,23 @@ public class Ejercicio_4 extends HttpServlet {
         }
 	}
 	
-	private int maximo(int[] arrayNumeros) {
+	private int[] ArrayNumeros() {
+		
+		int[]arrayNumeros = new int[20];
+		
+		for(int i=0; i<20; i++) {
+			int num = (int) Math.floor(Math.random()*10+1);
+			arrayNumeros[i] = num;
+		}
+
+		return arrayNumeros;
+		
+	}
+	
+	private int Maximo(int[] arrayNumeros) {
 		
 		int maximo = 0;
-		
-		
+	
 		for(int valor:arrayNumeros) {
 			if(valor > maximo) {
 				maximo = valor;
@@ -69,7 +76,7 @@ public class Ejercicio_4 extends HttpServlet {
 		return maximo;
 	}
 	
-	private int minimo(int[] arrayNumeros) {
+	private int Minimo(int[] arrayNumeros) {
 		
 		int minimo = 11;
 		
@@ -82,15 +89,28 @@ public class Ejercicio_4 extends HttpServlet {
 		return minimo;
 	}
 	
-	private int masRepetido(int[] arrayNumeros) {
+	private int MasRepetido(int[] arrayNumeros) {
+		int contador = 0;
+		int masRepetido = 0;
+		int mediana = -1;
 		
-		for(int valor:arrayNumeros) {
-			if(valor < minimo) {
-				minimo = valor;
+		for(int i=0; i<arrayNumeros.length; i++) {
+			
+			for(int j=0; j<arrayNumeros.length; j++) {
+				if(arrayNumeros[i]==arrayNumeros[j]) {
+					contador++;
+				}
 			}
+			
+			if(contador > masRepetido) {
+				mediana = arrayNumeros[i];
+				masRepetido = contador;
+			}
+			
+			contador = 0;
 		}
 		
-		return valor;
+		return mediana;
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

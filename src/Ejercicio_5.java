@@ -21,12 +21,8 @@ public class Ejercicio_5 extends HttpServlet {
 		    throws ServletException, IOException {
 
 		HashMap<String, String> periodicos = new HashMap<String, String>();
+		IncluirPeriodicos(periodicos);
 		
-		periodicos.put("El Pais", "https://elpais.com/");
-		periodicos.put("El Mundo", "https://www.elmundo.es/");
-		periodicos.put("ABC", "https://www.abc.es/");
-		periodicos.put("El Diario.es", "https://www.eldiario.es/");
-		periodicos.put("El Mundo Today", "https://www.elmundotoday.com/");
 		
 		        response.setContentType("text/html;charset=UTF-8");
 		        
@@ -47,7 +43,7 @@ public class Ejercicio_5 extends HttpServlet {
 		            int num = (int) Math.floor(Math.random()*4);
 		            String elegido = nombres[num];
 		            
-		            out.println("El Medio recomendado es: " + "<a href=\""+ periodicos.get(elegido)+ "\">" + elegido + "</a>");
+		            out.println("<br/><br/>El Medio recomendado es: " + "<a href=\""+ periodicos.get(elegido)+ "\">" + elegido + "</a>");
 
 		            out.println("</body>");
 		            out.println("</html>");
@@ -57,6 +53,15 @@ public class Ejercicio_5 extends HttpServlet {
 		        }
 		    } 
 
+	private void IncluirPeriodicos(HashMap<String, String> periodicos) {
+		
+		periodicos.put("El Pais", "https://elpais.com/");
+		periodicos.put("El Mundo", "https://www.elmundo.es/");
+		periodicos.put("ABC", "https://www.abc.es/");
+		periodicos.put("El Diario.es", "https://www.eldiario.es/");
+		periodicos.put("El Mundo Today", "https://www.elmundotoday.com/");
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
